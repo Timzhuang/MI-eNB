@@ -47,6 +47,11 @@
 
 #include "intertask_interface.h"
 
+const char *DCI_format_names[] = { "format0","format1","format1A","format1B","format1C","format1D",
+                                    "format1E_2A_M10PRB","format2","format2A","format2B","format2C",
+                                    "format2D","format3","format3A","format4","format5","format6_0A",
+                                    "format6_0B","format6_1A","format6_1B","format6_2"};
+
 nfapi_ue_release_request_body_t release_rntis;
 
 int16_t get_hundred_times_delta_IF_eNB(PHY_VARS_eNB *eNB,uint16_t UE_id,uint8_t harq_pid, uint8_t bw_factor) {
@@ -463,8 +468,13 @@ void phy_procedures_eNB_TX(PHY_VARS_eNB *eNB,
     return;
   }
 
-  if (num_dci > 0)
+  if (num_dci > 0){
+    DCI_ALLOC_t *tmp_dci = &eNB->pdcch_vars[subframe&1].dci_alloc[0];
+    printf("[MI] DCI %s Frame %d, Subframe %d [/MI]\n", DCI_format_names[tmp_dci->format], frame, subframe);
+    // TODO: change log in MI-eNB/common/utils/LOG/log.c and MI-eNB/common/utils/LOG/log.h to enable log mi                                                                                    
+    // LOG_MI("%d number of DCI Frame %d, Subframe %d", num_dci, frame, subframe);
     LOG_D(PHY,"[eNB %"PRIu8"] Frame %d, subframe %d: Calling generate_dci_top (pdcch) (num_dci %"PRIu8") num_pdcch_symbols:%d\n",eNB->Mod_id,frame, subframe, num_dci, num_pdcch_symbols);
+  }
 
   VCD_SIGNAL_DUMPER_DUMP_FUNCTION_BY_NAME(VCD_SIGNAL_DUMPER_FUNCTIONS_PHY_ENB_PDCCH_TX,1);
 

@@ -258,6 +258,7 @@ rx_sdu(const module_id_t enb_mod_idP,
       first_rb = UE_template_ptr->first_rb_ul[harq_pid];
 
       /* Program NACK for PHICH */
+      printf("[MI] NACK for frame %d, subframe %d UL [/MI]\n", frameP, subframeP);
       LOG_I(MAC, "Programming PHICH NACK for frame %d, subframe %d, rnti %x harq_pid %d (first_rb %d)\n",
             frameP,
 	    subframeP,
@@ -950,6 +951,7 @@ rx_sdu(const module_id_t enb_mod_idP,
   }
 
   /* Program ACK for PHICH */
+  printf("[MI] ACK for frame %d, subframe %d UL [/MI]\n", frameP, subframeP);
   LOG_I(MAC, "Programming PHICH ACK for frame %d, subframe %d, rnti %x harq_pid %d (first_rb %d)\n",
         frameP,
 	subframeP,

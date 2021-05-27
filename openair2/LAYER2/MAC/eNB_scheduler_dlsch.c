@@ -1650,6 +1650,7 @@ schedule_ue_spec(module_id_t module_idP,
             LOG_D(MAC, "Filled NFAPI configuration for DCI/DLSCH/TXREQ %d, new SDU\n",
                   eNB->pdu_index[CC_id]);
             eNB->pdu_index[CC_id]++;
+            printf("[MI] NACK for frame %d, subframe %d DL [/MI]\n", frameP, subframeP);
             program_dlsch_acknak(module_idP,
                                  CC_id,
                                  UE_id,
